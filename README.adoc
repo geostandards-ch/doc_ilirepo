@@ -24,6 +24,8 @@ Stefan Henrich <stefan.henrich@moflex.ch>; Rafael Schertenleib <schertenleib@lie
 
 // Die Verwiese auf die Inhalte der Dokumentation sollen im README auf Github nicht angezeigt werden.
 ifndef::env-github[]
+include::{includedir}/vorwort.adoc[]
+
 include::{includedir}/einfuehrung.adoc[]
 
 include::{includedir}/modell-index.adoc[]
