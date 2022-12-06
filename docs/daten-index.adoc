@@ -1,0 +1,149 @@
+== ilidata.xml -- Das Modell für Transferdateien
+
+=== Bedeutung
+In der Datei `ilidata.xml` werden alle Transferdateien aufgeführt, die in einem Daten-Repository verfügbar sind. Sie liegt im Wurzelverzeichnis eines Repositorys. Es können eine Vielzahl von Metadaten erfasst werden.
+
+=== Aufbau
+Den Daten in `ilidata.xml` liegt das nachfolgende Datenmodell zugrunde:
+
+.UML-Diagramm des Datenmodells https://models.interlis.ch/core/DatasetIdx16.ili[DatasetIdx16]
+image::{includedir}/img/UML_ilidata.png[1000,1000]
+
+'''
+
+[%autowidth.stretch]
+|===
+2+h|Klasse *DatasetMetadata*
+h|Attributname h| Bedeutung
+|title[0..1] | Titel des Datensatzes (kann mehrsprachig sein).
+|shortDescription[0..1] | Kurze Beschreibung oder Zusammenfassung des Datensatzes (kann mehrsprachig sein).
+|keywords[0..1]| Kommaseparierte Liste mit Schlüsselbegriffen zum Datensatz.
+// @todo.2022-12-01: Antwort auf ilimanager#11 ausstehend
+// |categories[0..*]| Klassifizierung dieses Datensatzes (URI).
+|categories[0..*]| _(Verwendungszweck noch unklar)_
+|servicer[0..1]| URL zum Bereitsteller des Datensatzes.
+|technicalContact[0..1] | E-Mail Link für technische Fragen zum Datensatz (z .B. `mailto:info@kgk-cgc.ch`).
+|furtherInformation[0..1] | URL zu einem weiterführenden Dokument oder einer Website mit zusätzlichen Informationen.
+|furtherMetadata[0..1]| URL zu einem maschinenlesbaren Daten zu diesem Datensatz.
+|knownWMS[0..*]| URL zu WMS-Diensten, welche den Datensatz bereitstellen.
+|knownWFS[0..*]| URL zu WFS-Diensten, welche den Datensatz bereitstellen.
+|atomWS[0..*]| URL zu ATOM-Diensten, welche den Datensatz bereitstellen.
+|furtherWS[0..*]| URL zu jeder anderen Art von Web-Diensten, welche diesen Datensatz bereitstellen oder prozessieren.
+|knownPortal[0..*]| URL zu Portalen, über die ein Nutzer diesen Datensatz betrachen oder herunterladen kann.
+|files[0..*] | Relative Dateipfade (pro vorhandener Datei) zu diesem Datensatz, inklusive Dateiformat und MD5 Prüfsumme.
+// @todo.2022-12-01: Verwendung noch nicht im Detail klar, Bedeutung noch anzupassen
+// |baskets[0..*] | Behälter zu diesem Datensatz, die in den angegebenen Dateien ( files ) vorkommen
+|===
+'''
+[%autowidth.stretch]
+|===
+2+h|Klasse *Metadata*
+h|Attributname h| Bedeutung
+2+| _(erbt alle Attribute aus der Struktur «Metadata», siehe unten)_
+|technicalContact[0..1]| E-Mail Link für technische Belange
+|===
+'''
+*Die wichtigsten Strukturen*
+
+[%autowidth.stretch]
+|===
+2+h|Struktur «Metadata»
+h|Attributname h| Bedeutung
+|id[0..1] | Stabiler und eindeutiger Datensatz-Identifikator (z. B. "ch.bfe.kernkraftwerke.1"). Wird in der Dokumentation von Software-Werkzeugen auch als `datasetId` bezeichnet.
+|originalId[0..1] | Datensatz-Identifikator, so, wie ihn der Eigentümer der Daten verwendet.
+|version[0..1] | Version des Datensatzes.
+|versionComment[0..1] | Kommentar zu dieser Version des Datensatzes (z. B. "Entwurf").
+|precursorVersion[0..1] | Version des Vorgängers des Datensatzes – muss im gleichen Repository vorliegen.
+|followupData[0..*] | Angaben zum Nachfolger des Datensatzes, die auch in einem anderen Repository vorliegen können.
+|derivedData[0..*]| Angaben zu abgeleiteten Daten des Datensatzes, die auch in einem anderen Repository vorliegen können.
+|sourceData[0..*]| Falls es sich beim Datensatz um abgeleitete Daten handelt, so können hier die Quelldatensätze angegeben werden, die auch in einem anderen Repository vorliegen können.
+|model[0..1]| INTERLIS-Modell oder Schema, welches zum Datensatz gehört. Qualifizierter TOPIC-Name, wenn es sich um INTERLIS Baskets handelt (Name, Repository, Versionshinweis).
+|epsgCode[0..1]| Bezugssystem dieses Datensatzes als EPSG Code; undefiniert, falls es sich um Daten ohne Geometrie handelt (z. B. Kataloge) oder um Daten, welche in mehreren Koordinatenreferenzsystemen (CRS) vorliegen.
+// @todo.2022-12-01: Verwendung noch nicht im Detail klar (Wertebreich = URI!?)
+// |geoScope[0..1]| Bezeichnung des durch diesen Datensatz abgedeckten Gebiets
+|geoScope[0..1]| _(Verwendungszweck noch unklar)_
+|resolutionScope[0..1]| Referenzmassstab des Datensatzes (Massstabszahl, also z. B. "50000" bei einem Massstab von 1:50'000).
+|publishingDate[0..1]| Publikationsdatum dieser Version des Datensatzes.
+|lastEditingDate[0..1]| Nachführungsdatum dieser Version des Datensatzes.
+|original[0..1]| URL der Original-Publikation dieses Datensatzes durch die zuständige Stelle (Link auf Daten-Repository oder Datei).
+|restrictions[0..*]| URL auf Nutzungsbestimmungen.
+|qualityResults[0..*]| Zusammenfassung und Verlinkung auf Dokumente (Logs) zur Validierung des Datensatzes (kann mehrsprachig sein).
+|owner[0..1]| URL der zuständigen Stelle.
+|boundary[0..1]| BBOX des Datensatzes.
+|===
+'''
+[%autowidth.stretch]
+|===
+2+h|Struktur «BasketMetadata»
+h|Attributname h| Bedeutung
+2+| _(erbt alle Attribute aus der Struktur «Metadata», siehe oben)_
+|localId[0..1]| Lokaler Identifikator für diesen Datenbehälter.
+|===
+'''
+[%autowidth.stretch]
+|===
+2+h|Struktur «DataFile»
+h|Attributname h| Bedeutung
+|fileFormat[1]| MIME type des Datensatzes; für INTERLIS 2.3 lautet er +
+`application/interlis+xml;version=2.3`
+|file[1..*1]| Relativer Pfad sowie MD5 Prüfsumme des Datensatzes .
+|===
+
+[NOTE]
+Alle Attribute in den beiden Klassen _DatasetMetadata_ und _Metadata_ sind optional. Das heisst, man ist sehr frei in der Erfassung der Metadaten in ilidata.xml.
+
+=== Beispiel für zwei Datensätze in ilidata.xml
+----
+<DatasetIdx16.DataIndex.DatasetMetadata TID="7ea67d69-49a6-49e8-b024-21a7780cbed5">
+    <id>ch.gl.transportation.wanderwege.hpm_type.1</id>
+    <title>
+        <DatasetIdx16.MultilingualText>
+            <LocalisedText>
+                <DatasetIdx16.LocalisedText>
+                    <Language>de</Language>
+                    <Text>HPM-Type</Text>
+                </DatasetIdx16.LocalisedText>
+            </LocalisedText>
+        </DatasetIdx16.MultilingualText>
+    </title>
+    <shortDescription>
+        <DatasetIdx16.MultilingualMText>
+            <LocalisedText>
+                <DatasetIdx16.LocalisedMText>
+                    <Language>de</Language>
+                    <Text>
+                        HPM-Type: kantonale Ergänzung um Typ "GL_Landesfussweg" und "GL_Landesfussweg_route"
+                    </Text>
+                </DatasetIdx16.LocalisedMText>
+            </LocalisedText>
+        </DatasetIdx16.MultilingualMText>
+    </shortDescription>
+    <version>2018-09-14</version>
+    <owner>mailto:geoinformation@gl.ch</owner>
+    <files>
+        <DatasetIdx16.DataFile>
+            <fileFormat>application/interlis+xml;version=2.3</fileFormat>
+            <file>
+                <DatasetIdx16.File>
+                    <path>xml/GL_Hpm_Catalogues_V1_1.xml</path>
+                    <md5>eef3eaa5894dddf635cf5e214d031f7b</md5>
+                </DatasetIdx16.File>
+            </file>
+        </DatasetIdx16.DataFile>
+    </files>
+    <baskets>
+        <DatasetIdx16.DataIndex.BasketMetadata>
+            <id>gl_hpm_type</id>
+            <!-- BID of basket in XTF -->
+            <version>2018-09-14</version>
+            <model>
+                <DatasetIdx16.ModelLink>
+                    <name>hpm_network_V1.hpm_catalogues</name>
+                    <!-- qualified TOPIC name -->
+                </DatasetIdx16.ModelLink>
+            </model>
+            <owner>mailto:geoinformation@gl.ch</owner>
+        </DatasetIdx16.DataIndex.BasketMetadata>
+    </baskets>
+</DatasetIdx16.DataIndex.DatasetMetadata>
+----

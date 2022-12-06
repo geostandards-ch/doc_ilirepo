@@ -1,0 +1,64 @@
+== ilisite.xml -- Die Vernetzung beginnt
+
+=== Bedeutung
+Mittels der Datei `ilisite.xml` wird ein Repository identifiziert. Die Datei liegt im Wurzelverzeichnis eines Repositorys und beinhaltet dessen Metadaten (z.B. Name, Betreiberin, Kontaktdaten). Zudem können darin auch URL zu übergeordneten und untergeordneten Repositories angegeben werden. Werkzeuge, die nach Modellen oder Transferdateien suchen,footnote:[siehe z. B. die Online-Suche von https://ilimodels.ch[ilimodels.ch]] können sich dadurch von Repository zu Repository hangeln, um ihre Suche auszudehnen. Die Suche läuft nach dem Breadth-First-Verfahren https://de.wikipedia.org/wiki/Breitensuche[(Wikipedia)] ab.
+
+.Funktionsweise Breadth-First-Search-Algorithmus
+image::{includedir}/img/Breadth-First-Search-Algorithm_finalFrame.gif[300,300]
+
+=== Aufbau
+Den Daten in `ilisite.xml` liegt das nachfolgende Datenmodell zugrunde:
+
+.UML-Diagramm des Datenmodells https://models.interlis.ch/core/IliSite09-20091119.ili[IliSite09]
+image::{includedir}/img/UML_ilisite.png[700,700]
+
+Das Modell besteht nur aus einer einzigen Klasse, _Site_, welche 13 Attribute enthält.
+
+[%autowidth.stretch]
+|===
+2+h|Klasse *Site*
+h|Attributname h| Bedeutung
+|Name[1]  | Name der Seite (z. B. qualifizierter Hostname wie `models.kgk-cgc.ch`).
+|Title[0..1] | Titel der Seite (z. B. "Model-Repository der Kantone und der KGK-CGC").
+|shortDescription[0..1] |Kurze Beschreibung zum Zweck des Repositorys.
+|Tags[0..1] | kommagetrennte Liste mit Stichworten, die mit diesem Repository in Verbindung gebracht werden sollen.
+|Owner[0..1] | URL der zuständigen Stelle (z. B. `https://www.kgk-cgc.ch`).
+|technicalContact[0..1] | E-Mail Link für technische Fragen zum Repository (z .B. `mailto:info@kgk-cgc.ch`).
+|furtherInformation[0..1] | URL zu weiterführender Dokumention für dieses Repository.
+|furtherMetadata[0..1] | URL zu einem maschinenlesbaren Metadatensatz zu diesem Repository.
+|parentSite[0..*] | URL zu weiteren übergeordneten Repositories.
+|subsidiarySite[0..*] | URL zu weiteren untergeordneten Repositories.
+|peerSite[0..*] | URL zu weiteren Repositories (auf gleicher Organisationsebene).
+|knownOtherSite[0..*] | URL zu anderen bekannten Repositories, wird bei Standardmodellsuche ignoriert.
+|mirrorSite[0..*] | URL zu gespiegelten Repositories, falls diese Seite offline ist.
+|===
+
+[NOTE]
+Wie in der Tabelle erkennbar, sind die Attribute _parentSite_ und _subsidiarySite_ nicht obligatorisch: Gibt man weder übergeordnete noch untergeordnete Repositories an, so funktioniert das Repository komplett autark. Das ist z. B. für Testzwecke, Entwicklungsumgebungen oder vertrauliche Datenmodelle geeignet, die nicht von ausserhalb einer Organisation gefunden werden sollen. Um ein solches autarkes Repository verwenden zu können, muss man dieses in den Software-Werkzeugen explizit als Modellquelle angeben.
+
+=== Beispiel für eine Datei ilisite.xml
+[source,xml]
+----
+<IliSite09.SiteMetadata BID="b0">
+    <IliSite09.SiteMetadata.Site TID="1">
+        <Name>models.interlis.ch</Name>
+        <Title>Allgemeine technische INTERLIS-Modelle</Title>
+        <Owner>http://www.interlis.ch</Owner>
+        <technicalContact>mailto:info@interlis.ch</technicalContact>
+        <subsidiarySite>
+            <IliSite09.RepositoryLocation_>
+                <value>http://models.geo.admin.ch</value>
+            </IliSite09.RepositoryLocation_>
+            <IliSite09.RepositoryLocation_>
+                <value>http://models.kkgeo.ch</value>
+            </IliSite09.RepositoryLocation_>
+            <IliSite09.RepositoryLocation_>
+                <value>http://models.geo.llv.li</value>
+            </IliSite09.RepositoryLocation_>
+            <IliSite09.RepositoryLocation_>
+                <value>https://repositorio.proadmintierra.info</value>
+            </IliSite09.RepositoryLocation_>
+        </subsidiarySite>
+    </IliSite09.SiteMetadata.Site>
+</IliSite09.SiteMetadata>
+----
