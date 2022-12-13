@@ -93,6 +93,7 @@ h|Attributname h| Bedeutung
 Alle Attribute in den beiden Klassen _DatasetMetadata_ und _Metadata_ sind optional. Das heisst, man ist sehr frei in der Erfassung der Metadaten in ilidata.xml.
 
 === Beispiel für zwei Datensätze in ilidata.xml
+[source,xml]
 ----
 <DatasetIdx16.DataIndex.DatasetMetadata TID="7ea67d69-49a6-49e8-b024-21a7780cbed5">
     <id>ch.gl.transportation.wanderwege.hpm_type.1</id>

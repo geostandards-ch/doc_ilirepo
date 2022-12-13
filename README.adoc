@@ -13,11 +13,9 @@ ifndef::env-github[:toc: left]
 
 = INTERLIS Repository
 Stefan Henrich <stefan.henrich@moflex.ch>; Rafael Schertenleib <schertenleib@lienhard-ag.ch>
-
 // Versionierung
 :revdate: {docdate}
-:revnumber: v1.0 
-:version-label!:
+:revnumber: 1.0.1
 // Pdf output
 :title-page:
 :chapter-label: // deprecated
