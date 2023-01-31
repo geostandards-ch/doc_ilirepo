@@ -99,9 +99,6 @@ h|Attributname h| Bedeutung
 |file[1..*1]| Relativer Pfad sowie MD5 Prüfsumme des Datensatzes .
 |===
 
-[NOTE]
-Alle Attribute in den beiden Klassen _DatasetMetadata_ und _Metadata_ sind optional. Das heisst, man ist sehr frei in der Erfassung der Metadaten in ilidata.xml.
-
 === Beispiel für zwei Datensätze in ilidata.xml
 [source,xml]
 ----
