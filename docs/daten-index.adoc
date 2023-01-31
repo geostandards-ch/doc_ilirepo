@@ -77,7 +77,10 @@ h|Attributname h| Bedeutung
 2+h|Struktur «BasketMetadata»
 h|Attributname h| Bedeutung
 2+| _(erbt alle Attribute aus der Struktur «Metadata», siehe oben)_
-|localId[0..1]| Lokaler Identifikator für diesen Datenbehälter.
+|localId[0..1]| Lokaler Identifikator für diesen Datenbehälter; ist obligatorisch, falls _id_ fehlt (via CONSTRAINT) 
+|id[1] | _geerbtes Attribut; hier obligatorisch, falls_ localId _fehlt (via CONSTRAINT)._
+|version[1] | _geerbtes Attribut, hier obligatorisch (via CONSTRAINT)._
+|owner[1] | _geerbtes Attribut, hier obligatorisch (via CONSTRAINT)._
 |===
 '''
 [%autowidth.stretch]
