@@ -45,6 +45,9 @@ h|Attributname h| Bedeutung
 h|Attributname h| Bedeutung
 2+| _(erbt alle Attribute aus der Struktur «Metadata», siehe unten)_
 |technicalContact[0..1]| E-Mail Link für technische Belange
+|id[1] | _geerbtes Attribut, hier obligatorisch (via CONSTRAINT)._
+|version[1] | _geerbtes Attribut, hier obligatorisch (via CONSTRAINT)._
+|owner[1] | _geerbtes Attribut, hier obligatorisch (via CONSTRAINT)._
 |===
 '''
 *Die wichtigsten Strukturen*
