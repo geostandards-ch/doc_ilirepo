@@ -1,3 +1,0 @@
-****
-Fehler entdeckt? Diese Website wird via https://github.com/geostandards-ch/doc_ilirepo[Github] gepflegt.
-****
