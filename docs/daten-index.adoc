@@ -15,6 +15,7 @@ image::{includedir}/img/UML_ilidata.png[1000,1000]
 |===
 2+h|Klasse *DatasetMetadata*
 h|Attributname h| Bedeutung
+2+| _(erbt alle Attribute aus der Struktur «Metadata», siehe unten)_
 |title[0..1] | Titel des Datensatzes (kann mehrsprachig sein).
 |shortDescription[0..1] | Kurze Beschreibung oder Zusammenfassung des Datensatzes (kann mehrsprachig sein).
 |keywords[0..1]| Kommaseparierte Liste mit Schlüsselbegriffen zum Datensatz.
@@ -33,6 +34,9 @@ h|Attributname h| Bedeutung
 |files[0..*] | Relative Dateipfade (pro vorhandener Datei) zu diesem Datensatz, inklusive Dateiformat und MD5 Prüfsumme.
 // @todo.2022-12-01: Verwendung noch nicht im Detail klar, Bedeutung noch anzupassen
 // |baskets[0..*] | Behälter zu diesem Datensatz, die in den angegebenen Dateien ( files ) vorkommen
+|id[1] | _geerbtes Attribut, hier obligatorisch (via CONSTRAINT)._
+|version[1] | _geerbtes Attribut, hier obligatorisch (via CONSTRAINT)._
+|owner[1] | _geerbtes Attribut, hier obligatorisch (via CONSTRAINT)._
 |===
 '''
 [%autowidth.stretch]
